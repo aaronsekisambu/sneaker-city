@@ -1,0 +1,26 @@
+.home-cards {
+  list-style-type: none;
+}
+
+.pagination-custom {
+  list-style-type: none;
+  justify-content: center;
+
+  .active {
+    background: white;
+    color: black;
+  }
+
+  li {
+    padding: 0 1rem;
+    background: #2b2b2b;
+    color: white;
+    outline: none;
+    border: none;
+
+    a {
+      outline: none;
+      border: none;
+    }
+  }
+}

@@ -1,0 +1,67 @@
+// general shoe css
+.shoe-status {
+  margin-top: -.8rem !important;
+  font-size: 15px;
+}
+.out-of-stock {
+  padding: 0;
+  margin: 0;
+  background: #700000;
+  font-size: 15px;
+  color: white !important;
+  text-align: center;
+}
+.release-date {
+  font-size: 10px !important;
+  font-weight: 400;
+}
+
+
+// shoe card
+.shoe-card {
+  width: 18rem;
+  object-fit: cover;
+  cursor: pointer;
+&:hover {
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+}
+
+
+// shoe details
+.shoe-details {
+  width: 18rem;
+  object-fit: cover;
+  margin: 4rem auto;
+
+  .size-details {
+    p {
+      font-weight: 400;
+    }
+.size-quality {
+     i {
+        font-size: 22px;
+    padding: 0 1rem;
+     }
+}
+    li {
+      list-style-type: none;
+      font-weight: 400;
+      cursor: pointer;
+      text-align: center;
+      background: #5d5c5c;
+      color: white !important;
+
+      &:hover {
+        background: #2b2b2b;
+      }
+
+      &:nth-child(1) {
+        background: #eeeded;
+        color: #191919 !important;
+        cursor: auto;
+      }
+
+    }
+  }
+}
