@@ -3,25 +3,26 @@ import { observer } from 'mobx-react-lite';
 import ReactPaginate from 'react-paginate';
 import Card from '../../Components/Shoe/Card';
 import { SneakerStore } from '../../MobX/Store';
+import { withRouter } from 'react-router-dom';
 
 const Home: FC<any> = observer((props: any) => {
 	const { history } = props;
 	const [sneakers, setSneakers] = useState([] as any);
 	const [totalSneaker, setTotalSneaker] = useState([] as any);
 	const Sneakers = useContext(SneakerStore);
-	const pageCount = 2;
+	const pageCount = 10;
 
 	useEffect(() => {
 		Sneakers.fetchSneakers().then((data) => {
 			if (Sneakers.state === 'done') {
-				setSneakers(data ? data.slice(0, 2) : '');
+				setSneakers(data ? data.slice(0, pageCount) : '');
 				setTotalSneaker(data);
 			}
 		});
 	}, [Sneakers]);
 
 	const handlePageClick = async (data: any) => {
-		const upperLimit = data.selected === 0 ? pageCount : data.selected * pageCount;
+		const upperLimit = data.selected === 0 ? pageCount : (data.selected + 1) * pageCount;
 		setSneakers(totalSneaker.slice(upperLimit - pageCount, upperLimit));
 	};
 	const viewSneaker = (model: string, id: string) => {
@@ -29,7 +30,7 @@ const Home: FC<any> = observer((props: any) => {
 		const getSelectedShow = sneakers.find((sneaker: any) => sneaker.id === id);
 		if (getSelectedShow) {
 			getSelectedShow.size.map((s: any) => {
-			return 	totalShoes.push(s.quantity);
+				return totalShoes.push(s.quantity);
 			});
 			localStorage.setItem('quantity', `${totalShoes.reduce((a: number, b: number) => a + b)}`);
 		}
@@ -38,37 +39,42 @@ const Home: FC<any> = observer((props: any) => {
 	return (
 		<Fragment>
 			{sneakers ? (
-				<div>
+				<div data-testid="home-target">
 					<ul className="list-group list-group-horizontal justify-content-space container my-5 flex-wrap home-cards">
 						{sneakers.map((sneaker: any) => {
-							const { model, id } = sneaker;
+							const { model, id, image, brandName, price, size, releaseDate } = sneaker;
 							return (
-								<li key={sneaker.id} onClick={() => viewSneaker(model, id)} className="mx-3 my-3">
+								<li key={id} onClick={() => viewSneaker(model, id)} className="mx-3 my-3">
 									<Card
-										image={sneaker.image}
-										brandName={sneaker.brandName}
-										price={sneaker.price}
-										size={sneaker.size}
-										model={sneaker.model}
-										releaseDate={sneaker.releaseDate}
+										image={image}
+										brandName={brandName}
+										price={price}
+										size={size}
+										model={model}
+										releaseDate={releaseDate}
 									/>
 								</li>
 							);
 						})}
 					</ul>
 
-					<ReactPaginate
-						previousLabel={<i className="zmdi zmdi-long-arrow-left"></i>}
-						nextLabel={<i className="zmdi zmdi-long-arrow-right"></i>}
-						breakLabel={'...'}
-						breakClassName={'break-me'}
-						pageCount={totalSneaker ? totalSneaker.length-1 : 0}
-						marginPagesDisplayed={2}
-						pageRangeDisplayed={1}
-						onPageChange={handlePageClick}
-						containerClassName="pagination-custom d-flex flex-nowrap"
-						activeClassName={'active'}
-					/>
+					{totalSneaker.length <= pageCount ? (
+						''
+					) : (
+						<ReactPaginate
+							previousLabel={<i className="zmdi zmdi-long-arrow-left"></i>}
+							nextLabel={<i className="zmdi zmdi-long-arrow-right"></i>}
+							breakLabel={'...'}
+							breakClassName={'break-me'}
+							pageCount={Math.ceil(totalSneaker.length / pageCount)}
+							marginPagesDisplayed={4}
+							pageRangeDisplayed={2}
+							onPageChange={handlePageClick}
+							containerClassName="pagination-custom d-flex flex-nowrap"
+							activeClassName={'active'}
+							disabledClassName={'text-secondary'}
+						/>
+					)}
 				</div>
 			) : (
 				'Loading ...'
@@ -77,4 +83,4 @@ const Home: FC<any> = observer((props: any) => {
 	);
 });
 
-export default Home;
+export default withRouter(Home);

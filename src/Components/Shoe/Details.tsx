@@ -22,24 +22,22 @@ const Details: FC<any> = observer((props: any) => {
 
 	const shopNow = async (shoeId: string, number: number, sizeId: string) => {
 		setCount(count + 1);
-		const selectedSizes: any = [];
 		const getSelectedSize = sneakerArray.find((sneaker) => sneaker.id === shoeId);
 		const quantity = localStorage.getItem('quantity');
 		if (getSelectedSize) {
 			return getSelectedSize.size.map((s) => {
 				if (sizeId === s.id) {
-					 if (count < parseInt(quantity ? quantity : '0')) {
+					if (count < parseInt(quantity ? quantity : '0')) {
 						return Sneakers.addItemsToCart(shoeId, number, sizeId, 1);
 					}
 				}
-				return selectedSizes.push({ id: s.id, quantity: s.quantity });
 			});
 		}
 	};
 	return (
 		<Fragment>
 			{data ? (
-				<div className="card shoe-details" data-testiid="details-comp">
+				<div className="card shoe-details" data-testid="details-comp">
 					<img src={data.image} className="card-img-top" alt="..." />
 					<div className="card-body">
 						<div className="row justify-content-cent m-auto">
@@ -57,7 +55,10 @@ const Details: FC<any> = observer((props: any) => {
 										<p className="text-secondary">Quantity</p>
 									</div>
 									{data.size.map((s: any) => (
-										<ul className="list-group list-group-horizontal justify-content-between mb-1" key={s.id}>
+										<ul
+											className="list-group list-group-horizontal justify-content-between mb-1"
+											key={s.id}
+										>
 											<li className="px-1 size-number text-secondary w-100">{s.number}</li>
 											{s.quantity > 0 ? (
 												<li

@@ -1,8 +1,10 @@
 // general shoe css
 .shoe-status {
   margin-top: -.8rem !important;
-  font-size: 15px;
+  font-size: 10px;
+  font-weight: 500;
 }
+
 .out-of-stock {
   padding: 0;
   margin: 0;
@@ -11,6 +13,7 @@
   color: white !important;
   text-align: center;
 }
+
 .release-date {
   font-size: 10px !important;
   font-weight: 400;
@@ -22,9 +25,15 @@
   width: 18rem;
   object-fit: cover;
   cursor: pointer;
-&:hover {
-  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
-}
+
+  img {
+    height: 200px;
+    object-fit: cover;
+  }
+
+  &:hover {
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+  }
 }
 
 
@@ -38,12 +47,14 @@
     p {
       font-weight: 400;
     }
-.size-quality {
-     i {
+
+    .size-quality {
+      i {
         font-size: 22px;
-    padding: 0 1rem;
-     }
-}
+        padding: 0 1rem;
+      }
+    }
+
     li {
       list-style-type: none;
       font-weight: 400;

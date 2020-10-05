@@ -7,7 +7,3 @@ export interface ISneakers {
     releaseDate: any,
     id: string
 }
-
-export interface IGenerateResponse {
-	[key: string]: any;
-}
