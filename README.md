@@ -12,5 +12,5 @@ that shows just the latest in sneaker trends.
 
 The project should start at port [3000](http://localhost:3000).
 This should also start fetching the hard corded backend data.
-You can also access the app [here](http://localhost:3000) to live site
+You can also access the app [here](https://sneaker-city.vercel.app/) to live site
 

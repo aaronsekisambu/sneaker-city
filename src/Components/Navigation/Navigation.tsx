@@ -1,30 +1,65 @@
-import React, { Fragment, useContext } from 'react';
-import {SneakerStore} from "../../MobX/Store";
-import {observer} from "mobx-react-lite";
+import React, { FC, Fragment, useContext } from 'react';
+import { SneakerStore } from '../../MobX/Store';
+import { observer } from 'mobx-react-lite';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-const Navigation = observer((props: any) => {
+interface NavigationComponentProps extends RouteComponentProps {}
+const Navigation: FC<NavigationComponentProps> = observer(({ history }) => {
 	const Sneakers = useContext(SneakerStore);
+	const goBackHome = () => {
+		history.push('/');
+	};
+	const login = () => {
+		history.push('/login');
+	};
+
+	const getStarted = () => {
+		history.push('/getStarted');
+	};
+	const goToCart = () => {
+		history.push('/cart');
+	};
 	return (
 		<Fragment>
 			<nav className="navbar navbar-light bg-light" data-testid="nav-header">
-				<a className="navbar-brand" href="/">
+				<div className="navbar-brand text-dark" onClick={goBackHome}>
 					<img
-						src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/i1-512bfa8a-01a0-4971-bd34-9cef18a159e0/air-force-1-07-womens-shoe-KyTwDPGG.jpg"
+						src="https://image.freepik.com/free-vector/pharmacy-logo-vector_23987-171.jpg"
 						width="30"
 						height="30"
 						className="d-inline-block align-top"
 						alt=""
 						loading="lazy"
 					/>
-					Sneaker City
-				</a>
-				<button type="button" className={`btn btn-${Sneakers.cart.length === 0 ? 'light' : 'success'}`}>
-					<i className="zmdi zmdi-shopping-cart"></i>{' '}
-					<span className="badge badge-light">{Sneakers.cart.length === 0 ? '' : Sneakers.cart.length}</span>
-				</button>
+					Pharmacy Online
+				</div>
+				<div className="d-flex flex-row">
+					<button
+						type="button"
+						className={`btn btn-${Sneakers.cart.length === 0 ? 'light' : 'success'}`}
+						onClick={goToCart}
+					>
+						<i className="zmdi zmdi-shopping-cart"></i>{' '}
+						<span className="badge badge-light">
+							{Sneakers.cart.length === 0
+								? ''
+								: Sneakers.cart
+										.map((item) => item.count)
+										.reduce((accumulator, currentValue) => accumulator + currentValue)}
+						</span>
+					</button>
+					<button type="button" className="btn btn-outline-info mx-2" onClick={login}>
+						<i className="zmdi zmdi-account-circle px-2"></i>
+						Login
+					</button>
+					<button type="button" className="btn btn-primary mx-2" onClick={getStarted}>
+						<i className="zmdi zmdi-account-add px-2"></i>
+						Get Started
+					</button>
+				</div>
 			</nav>
 		</Fragment>
 	);
 });
 
-export default Navigation;
+export default withRouter(Navigation);

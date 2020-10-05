@@ -13,22 +13,23 @@ export class Store {
 	}
 
 	@computed
-	public addItemsToCart(shoeId: string, number: number, sizeId: string, count: number) {
-		const checkAdded = sneakerArray.find((sneaker) => sneaker.id === shoeId);
+	public addItemsToCart(id: string) {
+		const checkAdded = sneakerArray.find((sneaker) => sneaker.id === id);
+		console.log('beula', checkAdded);
 		if (checkAdded) {
-			const selected = checkAdded.size.find((s) => s.id === sizeId);
+			// const selected = checkAdded.find((s) => s.id === sizeId);
 			const checkCart = toJS(this.cart);
 			if (checkCart.length > 0) {
-                const findInCart = this.cart.find((item) => item.shoeId === shoeId && item.id === sizeId);
-                
+			    const findInCart = this.cart.find((item) => item.id === id);
 				if (!findInCart) {
-					this.cart.push({ ...selected, shoeId: checkAdded.id, count: 1 });
+					this.cart.push({ id: checkAdded.id, count: 1, name: checkAdded.brandName, price: checkAdded.price });
 				} else {
 					findInCart.count = findInCart.count + 1;
 				}
 			}
 			if (checkCart.length === 0) {
-				this.cart.push({ ...selected, shoeId: checkAdded.id, count: count });
+			this.cart.push({ id: checkAdded.id, count: 1, name: checkAdded.brandName, price: checkAdded.price });
+			// // this.cart.push(checkAdded);
 			}
 		}
 	}

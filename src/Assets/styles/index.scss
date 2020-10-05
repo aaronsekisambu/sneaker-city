@@ -1,10 +1,20 @@
 @import '../../Components/Shoe/shoe';
 @import '../../Screens/Home/home.scss';
-
+@import '../../Components/Authentication/authentication.scss';
 
 body {
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 300;
+	font-family: 'Quicksand', sans-serif;
+	font-weight: 300;
+}
+
+.not-found {
+	font-size: 50px;
+	margin: 4rem 0 !important;
+	border: none !important;
+}
+
+.navbar-brand {
+	cursor: pointer;
 }
 
 h1,
@@ -13,5 +23,5 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: 500;
+	font-weight: 500;
 }
