@@ -5,15 +5,9 @@ import { toJS } from 'mobx';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
@@ -36,10 +30,8 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface CartComponentProps extends RouteComponentProps {}
-const Cart: FC<CartComponentProps> = ({ history }) => {
+const Cart: FC<CartComponentProps> = observer (({ history }) => {
 	const classes = useStyles();
-	const [dense, setDense] = React.useState(false);
-	const [secondary, setSecondary] = React.useState(true);
 	const sneakers = useContext(SneakerStore);
 	const cartItems = toJS(sneakers.cart);
 
@@ -63,12 +55,12 @@ const Cart: FC<CartComponentProps> = ({ history }) => {
 			) : (
 				<div className={classes.root}>
 					<h1 className="display-5">Cart Summary</h1>
-					<Grid spacing={2}>
+					<Grid>
 						<Grid item xs={12} md={6} style={{ margin: '0 auto' }}>
 							<div className={classes.demo}>
-								<List dense={dense}>
-									{cartItems.map((item) => (
-										<ListItem className="border-bottom">
+								<List >
+									{cartItems.map((item, id) => (
+										<ListItem className="border-bottom" key={id}>
 											<ListItemText primary={item.name} secondary={item.count} />
 											<small>RFW {item.count * item.price}</small>
 											<ListItemSecondaryAction>
@@ -84,7 +76,7 @@ const Cart: FC<CartComponentProps> = ({ history }) => {
 					</Grid>
 					<Grid item xs={12} md={6} style={{ margin: '0 auto' }}>
 						<div className={classes.demo}>
-							<List dense={dense}>
+							<List>
 								<ListItem className="border-bottom">
 									<ListItemText
 										primary="Total"
@@ -120,6 +112,6 @@ const Cart: FC<CartComponentProps> = ({ history }) => {
 			)}
 		</Fragment>
 	);
-};
+});
 
 export default withRouter(Cart);

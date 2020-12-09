@@ -3,10 +3,10 @@ import { observer } from 'mobx-react-lite';
 import ReactPaginate from 'react-paginate';
 import Card from '../../Components/Shoe/Card';
 import { SneakerStore } from '../../MobX/Store';
-import { withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-const Home: FC<any> = observer((props: any) => {
-	const { history } = props;
+interface HomeComponentProps extends RouteComponentProps {}
+const Home: FC<HomeComponentProps> = observer(({history}) => {
 	const [sneakers, setSneakers] = useState([] as any);
 	const [totalSneaker, setTotalSneaker] = useState([] as any);
 	const Sneakers = useContext(SneakerStore);
@@ -26,8 +26,8 @@ const Home: FC<any> = observer((props: any) => {
 		setSneakers(totalSneaker.slice(upperLimit - pageCount, upperLimit));
 	};
 	const viewSneaker = (model: string, id: string) => {
-		const totalShoes: any = [];
-		const getSelectedShow = sneakers.find((sneaker: any) => sneaker.id === id);
+		// const totalShoes: any = [];
+		// const getSelectedShow = sneakers.find((sneaker: any) => sneaker.id === id);
 		// if (getSelectedShow) {
 		// 	getSelectedShow.size.map((s: any) => {
 		// 		return totalShoes.push(s.quantity);

@@ -22,7 +22,7 @@ const Navigation: FC<NavigationComponentProps> = observer(({ history }) => {
 	return (
 		<Fragment>
 			<nav className="navbar navbar-light bg-light" data-testid="nav-header">
-				<div className="navbar-brand text-dark" onClick={goBackHome}>
+				<button className="navbar-brand text-dark btn btn-outline-light" onClick={goBackHome}>
 					<img
 						src="https://image.freepik.com/free-vector/pharmacy-logo-vector_23987-171.jpg"
 						width="30"
@@ -32,7 +32,7 @@ const Navigation: FC<NavigationComponentProps> = observer(({ history }) => {
 						loading="lazy"
 					/>
 					Pharmacy Online
-				</div>
+				</button>
 				<div className="d-flex flex-row">
 					<button
 						type="button"

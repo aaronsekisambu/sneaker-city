@@ -15,7 +15,7 @@ const Details: FC<DetailsComponentProps> = observer(
 		},
 	}) => {
 		const [data, setData] = useState<any>();
-		const [count, setCount] = useState(0);
+		// const [count, setCount] = useState(0);
 		const Sneakers = useContext(SneakerStore);
 
 		useEffect(() => {
@@ -26,10 +26,9 @@ const Details: FC<DetailsComponentProps> = observer(
 		}, [sneakerId]);
 
 		const shopNow = async (id: string) => {
-			setCount(count + 1);
+			// setCount(count + 1);
 			// const getSelectedSize = sneakerArray.find((sneaker) => sneaker.id === shoeId);
 			// const quantity = localStorage.getItem('quantity');
-			console.log('we are here');
 			// if (getSelectedSize) {
 			// 	return getSelectedSize.size.map((s) => {
 			// 		if (sizeId === s.id) {
